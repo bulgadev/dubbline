@@ -7,16 +7,15 @@ A high-level tour of the design. The source code is private, so this page covers
 A **modular monolith**: one Python codebase with two process types (an API and a worker), plus a Next.js web app. There are no microservices.
 
 ```mermaid
-flowchart TB
+flowchart LR
     W["Web app<br/>Next.js"] -->|HTTPS| A["API<br/>FastAPI"]
-    A --> DB[("PostgreSQL<br/>users, runs, credits")]
-    A -->|enqueue run| DB
-    W -. signed upload / download .-> O[("Object storage")]
-    K["Worker"] -->|claim, heartbeat| DB
-    K -->|spawns one process per run| E["Dubbing engine"]
-    E --> P["Project package on disk<br/>project.json + media"]
-    E --> X["Providers: separation,<br/>transcription, translation, voices"]
-    K --> O
+    A -->|"data + enqueue runs"| DB[("PostgreSQL<br/>users, runs, credits")]
+    W -. "signed upload / download" .-> O[("Object storage")]
+    K["Worker"] -->|"claim runs, heartbeat"| DB
+    K -->|"spawns one process per run"| E["Dubbing engine"]
+    E --> P["Project package<br/>project.json + media"]
+    E --> X["Providers<br/>separation, transcription,<br/>translation, voices"]
+    K -->|"publishes exports"| O
 ```
 
 - **Engine.** A standalone package that turns a video into a dubbed video. It knows nothing about users, billing or HTTP. It reads a run request, writes a project package, and emits progress events.
