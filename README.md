@@ -76,6 +76,8 @@ The first five stages run once per project; the rest run per language. Details i
 
 I build end-to-end products with media and AI pipelines, background jobs, billing, and polished interfaces. If that sounds useful:
 
+- Portfolio: [bulgaaw.com](https://bulgaaw.com)
+- Email: [me@bulgaaw.com](mailto:me@bulgaaw.com)
 - X: [@LinkyDevv](https://x.com/LinkyDevv)
 - GitHub: [bulgadev](https://github.com/bulgadev)
 
